@@ -37,13 +37,20 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/vuetify'
+    '@/plugins/vuetify',
+    '@/plugins/vue-awesome',
+    '@/plugins/application-methods'
+
   ],
 
   /*
   ** Nuxt.js modules
   */
   modules: [
+    ['storyblok-nuxt', {
+      accessToken: 'r2f0HSecUbtclIZnj09eCwtt',
+      cacheProvider: 'memory'
+    }]
   ],
 
   /*
@@ -66,7 +73,7 @@ module.exports = {
       if (ctx.isServer) {
         config.externals = [
           nodeExternals({
-            whitelist: [/^vuetify/]
+            whitelist: [/^vuetify/, /^vue-awesome/]
           })
         ]
       }
