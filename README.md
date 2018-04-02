@@ -1,6 +1,6 @@
-# blog
+# Adnan Purnaya Blog
 
-> Adnan Purnaya Blog - a web developer
+> a web developer blog
 
 ## Build Setup
 
