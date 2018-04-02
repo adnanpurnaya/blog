@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap v-scroll="onScroll">
-    <v-flex v-for="post in posts" :key="post.id" md6 lg4>
+    <v-flex v-if="posts.length > 0" v-for="post in posts" :key="post.id" md6 lg4>
       <PreviewPost 
         :img-url="post.imgUrl" 
         :content="post.content" 
@@ -8,6 +8,14 @@
         :link="post.slug"
         :published-at="post.publishedAt"
       />
+    </v-flex>
+    <v-flex 
+      v-if="posts.length == 0" 
+      class="grey--text text--darken-1" 
+      style="align-self: center; text-align:center"
+    >
+      <p style="font-size: 3rem">:(</p> 
+      <p style="font-size: 1.5rem">Maaf, untuk saat ini belum ada post untuk ditampilkan.</p>
     </v-flex>
     <v-flex style="text-align:center" v-if="loading">
       <v-progress-circular :size="size" indeterminate color="primary"></v-progress-circular>
