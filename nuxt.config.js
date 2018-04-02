@@ -50,7 +50,8 @@ module.exports = {
     ['storyblok-nuxt', {
       accessToken: 'r2f0HSecUbtclIZnj09eCwtt',
       cacheProvider: 'memory'
-    }]
+    }],
+    "@nuxtjs/pwa"
   ],
 
   /*

@@ -14,6 +14,7 @@
     "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "dependencies": {
+    "@nuxtjs/pwa": "^2.0.8",
     "nuxt": "^1.0.0",
     "storyblok-nuxt": "0.0.3",
     "vue-awesome": "^2.3.5",
