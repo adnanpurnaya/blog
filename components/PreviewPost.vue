@@ -1,39 +1,39 @@
 <template>
-  <v-card class="ma-3" hover nuxt :to="link">
-    <v-card-media height="200px" :src="imgUrl"></v-card-media>
-    <v-card-title primary-title>
-      <div>
-        <h3 class="headline mb-0">{{ title }}</h3>
-        <span class="grey--text">
-          <icon name="clock-o" scale="0.7"></icon> {{ $applicationMethods.formatDate(publishedAt) }}
-        </span>
-        <div>{{ $applicationMethods.firstParagraph(content) }}</div>
-      </div>
-    </v-card-title>
-    <!-- <v-card-text>
-      {{ firstParagraph(content) }}
-    </v-card-text> -->
+  <v-card class="ma-3" hover>
+    <nuxt-link :to="link">
+      <v-card-media height="200px" :src="imgUrl || defaultImage"></v-card-media>
+      <v-card-title primary-title>
+        <div>
+          <h3 class="headline mb-0">{{ title }}</h3>
+          <span class="grey--text">
+            <icon name="clock-o" scale="0.7"></icon> {{ $applicationMethods.formatDate(publishedAt) }}
+          </span>
+          <article>{{ $applicationMethods.firstParagraph(content) }}</article>
+        </div>
+      </v-card-title>
+      <!-- <article class="px-3 pt-0 pb-3">
+        {{ $applicationMethods.firstParagraph(content) }}
+      </article> -->
+    </nuxt-link>
     <v-card-actions>
-      <v-btn icon class="light-blue--text">
-        <icon name="telegram" scale="1.5"></icon>
-      </v-btn>
-      <v-btn icon class="green--text">
-        <icon name="whatsapp" scale="1.5"></icon>
-      </v-btn>
-      <v-btn icon class="light-blue--text">
-        <icon name="twitter" scale="1.5"></icon>
-      </v-btn>
-      <v-btn icon class="blue--text text--darken-4">
-        <icon name="facebook-f" scale="1.5"></icon>
-      </v-btn>
+      <ShareButton :text="title" />
       <v-spacer></v-spacer>
-      <v-btn flat class="blue--text">Read More</v-btn>
+      <v-btn flat class="blue--text" nuxt :to="link">Read More</v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
+import ShareButton from "~/components/ShareButton";
+import * as config from "~/config";
+
 export default {
+  components: {
+    ShareButton
+  },
+  data: () => ({
+    defaultImage: config.DEFAULT_IMAGE
+  }),
   props: {
     title: {
       type: String,

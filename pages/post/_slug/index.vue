@@ -43,10 +43,14 @@ export default {
         };
       })
       .catch(res => {
-        context.error({
-          statusCode: res.response.status,
-          message: res.response.data
-        });
+        if (res.code == "ECONNABORTED") {
+          console.warn(res.message);
+        } else {
+          context.error({
+            statusCode: res.response.status,
+            message: res.response.data
+          });
+        }
         return { post: null };
       });
   }

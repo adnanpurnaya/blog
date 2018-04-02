@@ -1,0 +1,1 @@
+export const DEFAULT_IMAGE = "https://a.storyblok.com/f/43132/400x400/abe5a347ec/image-placeholder-v2.jpg";

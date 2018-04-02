@@ -12,6 +12,16 @@
   </v-app>
 </template>
 
+<style>
+article {
+  white-space: pre-line;
+}
+
+.card * {
+  text-decoration: none;
+}
+</style>
+
 <script>
 import Navigation from "@/components/Navigation";
 

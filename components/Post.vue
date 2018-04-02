@@ -9,29 +9,27 @@
         </span>
       </div>
     </v-card-title>
-    <v-card-media class="mx-3" height="250px" :src="imgUrl"></v-card-media>
-    <v-card-text>
+    <v-card-media class="mx-3" height="250px" :src="imgUrl || defaultImage"></v-card-media>
+    <article class="pa-3">
       {{ content }}
-    </v-card-text>
+    </article>
     <v-card-actions>
-      <v-btn icon class="light-blue--text">
-        <icon name="telegram" scale="1.5"></icon>
-      </v-btn>
-      <v-btn icon class="green--text">
-        <icon name="whatsapp" scale="1.5"></icon>
-      </v-btn>
-      <v-btn icon class="light-blue--text">
-        <icon name="twitter" scale="1.5"></icon>
-      </v-btn>
-      <v-btn icon class="blue--text text--darken-4">
-        <icon name="facebook-f" scale="1.5"></icon>
-      </v-btn>
+      <ShareButton :text="title" />
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
+import ShareButton from "~/components/ShareButton";
+import * as config from "~/config";
+
 export default {
+  components: {
+    ShareButton
+  },
+  data: () => ({
+    defaultImage: config.DEFAULT_IMAGE
+  }),
   props: {
     title: {
       type: String,

@@ -10,9 +10,11 @@ ApplicationMethods.install = function (Vue, options) {
       return objDate.toLocaleDateString("id");
     },
     firstParagraph(content) {
-      const paragraph = content.match(/<p>(.+?)<\/p>/g);
-      if (!paragraph) return content;
-      return paragraph[0];
+      // const paragraphs = content.match(/<p>(.+?)<\/p>/g);
+      const paragraphs = content.split("\n");
+      if (!paragraphs) return content;
+      // return paragraphs[0];
+      return paragraphs.find(paragraph => paragraph != "");
     }
   }
 }
