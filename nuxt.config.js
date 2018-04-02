@@ -78,5 +78,13 @@ module.exports = {
         ]
       }
     }
+  },
+
+  /*
+  ** routerBase
+  */
+  router: {
+    base: '/blog/',
+    mode: 'hash'
   }
 }
