@@ -6,9 +6,7 @@
         <nuxt />
       </v-container>
     </v-content>
-    <v-footer color="indigo" app>
-      <span class="white--text">&copy; {{ year }}</span>
-    </v-footer>
+    <Footer />
   </v-app>
 </template>
 
@@ -23,11 +21,13 @@ article {
 </style>
 
 <script>
-import Navigation from "@/components/Navigation";
+import Navigation from "~/components/Navigation";
+import Footer from "~/components/Footer";
 
 export default {
   components: {
-    Navigation
+    Navigation,
+    Footer
   },
   data: () => ({
     year: new Date().getFullYear()
