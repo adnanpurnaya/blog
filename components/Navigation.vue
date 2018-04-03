@@ -74,6 +74,11 @@ export default {
   components: {
     // ShareMenu
   },
+  props: {
+    open: {
+      type: Boolean
+    }
+  },
   data: () => ({
     appName: "",
     drawer: null,
@@ -126,6 +131,9 @@ export default {
   watch: {
     $route(to, from) {
       this.initNavigation(to.name);
+    },
+    open: (val) => {
+      this.drawer = val;
     }
   }
 };

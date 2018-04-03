@@ -1,11 +1,7 @@
 <template>
   <v-app id="inspire">
-    <Navigation />
-    <v-content v-touch="{
-      left: () => onSwipe('left'),
-      right: () => onSwipe('right')
-    }">
-    {{ swipeDirection}}
+    <Navigation :open="drawer" />
+    <v-content v-touch="{ right: () => onSwipeRight() }">
       <v-container>
         <nuxt />
       </v-container>
@@ -35,12 +31,11 @@ export default {
   },
   data: () => ({
     year: new Date().getFullYear(),
-    swipeDirection: ''
+    drawer: false
   }),
   methods: {
-    onSwipe(direction) {
-      alert(direction);
-      this.swipeDirection = direction
+    onSwipeRight() {
+      this.drawer = true;
     }
   }
 };
