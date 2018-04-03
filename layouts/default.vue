@@ -1,7 +1,10 @@
 <template>
   <v-app id="inspire">
     <Navigation />
-    <v-content>
+    <v-content v-touch="{
+      left: () => alert('left'),
+      right: () => alert('right')
+    }">
       <v-container>
         <nuxt />
       </v-container>
