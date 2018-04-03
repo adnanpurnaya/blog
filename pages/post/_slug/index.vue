@@ -1,5 +1,5 @@
 <template>
-  <v-layout justify-center>
+  <v-layout justify-center v-editable="storyblok">
     <v-flex md10>
       <Post 
         :img-url="post.imgUrl" 
@@ -39,7 +39,8 @@ export default {
             imgUrl: post.content.image,
             content: post.content.content,
             publishedAt: post.content.publishedAt
-          }
+          },
+          storyblok: res.data.story.content
         };
       })
       .catch(res => {
@@ -51,8 +52,14 @@ export default {
             message: res.response.data
           });
         }
-        return { post: null };
+        return { post: null, storyblok: null };
       });
+  },
+  mounted() {
+    this.$storyblok.init();
+    this.$storyblok.on("change", () => {
+      location.reload(true);
+    });
   }
 };
 </script>

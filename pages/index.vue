@@ -20,7 +20,7 @@
     <v-flex style="text-align:center" v-if="loading">
       <v-progress-circular :size="size" indeterminate color="primary"></v-progress-circular>
     </v-flex>
-    <v-snackbar bottom color="grey darken-3" v-model="noMoreData">
+    <v-snackbar bottom color="teal darken-1" v-model="noMoreData">
       Semua post telah ditampilkan
       <v-btn flat color="grey lighten-3" @click.native="noMoreData = false">Close</v-btn>
     </v-snackbar>
