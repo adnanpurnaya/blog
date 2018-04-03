@@ -1,7 +1,7 @@
 {
   "name": "blog",
   "version": "1.0.0",
-  "description": "Adnan Blog - a simply readable Web Development Blog app.",
+  "description": "Adnanp Blog - a simply readable Web Development Blog app.",
   "author": "Adnan Purnaya",
   "private": true,
   "scripts": {
