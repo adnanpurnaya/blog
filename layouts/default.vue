@@ -1,7 +1,11 @@
 <template>
   <v-app id="inspire">
     <Navigation :open.sync="drawer" />
-    <v-content v-touch="{ right: () => onSwipeRight() }">
+    <v-content v-touch="{ 
+        right: () => onSwipe('right'), 
+        left: () => onSwipe('left') 
+      }"
+    >
       <span @click="onSwipeRight">asd</span>
       <v-container>
         <nuxt />
@@ -35,8 +39,8 @@ export default {
     drawer: false
   }),
   methods: {
-    onSwipeRight() {
-      this.drawer = true;
+    onSwipe(direction) {
+      this.drawer = direction == 'right';
     }
   }
 };
