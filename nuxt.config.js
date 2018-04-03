@@ -99,7 +99,7 @@ module.exports = {
     short_name: config.app.short_name,
     description: config.app.description,
     theme_color: config.app.color,
-    background_color: "#B2DFDB",
+    background_color: "#fff",
     lang: 'id',
   }
 }
