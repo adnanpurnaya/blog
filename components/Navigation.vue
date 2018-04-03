@@ -8,6 +8,7 @@
     >
       <v-list>
         <v-list-tile 
+          ripple
           active-class="grey lighten-3 teal--text text--lighten-1"
           v-for="menu in menus" 
           :key="menu.link" 
