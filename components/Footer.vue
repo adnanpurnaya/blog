@@ -5,10 +5,20 @@
           <div class="white--text ml-3">
             Made with
             <v-icon class="pink--text text--lighten-2">favorite</v-icon>
-            by <a class="white--text" href="https://nuxtjs.org" target="_blank">Nuxt</a>
-            and <a class="white--text" href="https://vuetifyjs.com" target="_blank">Vuetify</a>
+            by <nuxt-link to="/" class="white--text">{{ author }}</nuxt-link>
           </div>
         </v-flex>
       </v-layout>
     </v-footer>
 </template>
+
+
+<script>
+import { author } from "~/config";
+
+export default {
+  data: () => ({
+    author
+  })
+};
+</script>
