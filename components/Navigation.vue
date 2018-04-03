@@ -25,7 +25,7 @@
       </v-list>
     </v-navigation-drawer>
     <transition name="fade" >
-      <v-toolbar color="teal lighten-1" dark fixed app v-show="visible">
+      <v-toolbar color="teal lighten-1" dark fixed app v-show="visible" :class="paddingLeft">
         <v-btn v-if="showPost" @click.stop="redirectBack" icon class="hidden-md-and-up"><v-icon color="">arrow_back</v-icon></v-btn>
         <v-toolbar-side-icon v-else class="hidden-md-and-up" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         <nuxt-link to="/" class="white--text" style="text-decoration: none" v-show="appName != 'Post'">
@@ -109,6 +109,15 @@ export default {
         this.visible = true;
       }
       this.lastOffsetTop = offsetTop;
+    }
+  },
+  computed: {
+    paddingLeft() {
+      let padding = "";
+
+      if (this.$vuetify.breakpoint.mdAndUp) padding = "pl-5";
+
+      return padding;
     }
   },
   mounted() {
