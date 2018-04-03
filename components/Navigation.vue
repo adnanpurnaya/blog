@@ -2,7 +2,7 @@
   <nav v-resize="initNavigation" v-scroll="onScroll">
     <v-navigation-drawer
       fixed
-      v-model="open"
+      v-model="drawer"
       app
       temporary
     >
@@ -81,7 +81,6 @@ export default {
   },
   data: () => ({
     appName: "",
-    drawer: null,
     showPost: false,
     menus: [
       { text: "Home", link: "/", icon: "home", exact: true },
@@ -123,6 +122,14 @@ export default {
       if (this.$vuetify.breakpoint.mdAndUp) padding = "pl-5";
 
       return padding;
+    },
+    drawer: {
+      get() {
+        return this.open;
+      },
+      set(val) {
+        this.$emit("update:open", val);
+      }
     }
   },
   mounted() {

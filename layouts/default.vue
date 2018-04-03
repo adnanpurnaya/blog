@@ -1,7 +1,8 @@
 <template>
   <v-app id="inspire">
-    <Navigation :open="drawer" />
+    <Navigation :open.sync="drawer" />
     <v-content v-touch="{ right: () => onSwipeRight() }">
+      <span @click="onSwipeRight">asd</span>
       <v-container>
         <nuxt />
       </v-container>
