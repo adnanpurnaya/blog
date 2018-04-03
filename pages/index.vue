@@ -11,8 +11,8 @@
     </v-flex>
     <v-flex 
       v-if="posts.length == 0" 
-      class="grey--text text--darken-1" 
-      style="align-self: center; text-align:center"
+      class="grey--text text--darken-1 mt-5" 
+      style="text-align:center"
     >
       <p style="font-size: 3rem">:(</p> 
       <p style="font-size: 1.5rem">Maaf, untuk saat ini belum ada post untuk ditampilkan.</p>
