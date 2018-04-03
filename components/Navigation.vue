@@ -42,7 +42,7 @@
             <v-icon class="mr-1">{{ menu.icon }}</v-icon> {{ menu.text }}
           </v-btn>
         </v-toolbar-items>
-        <ShareMenu class="hidden-md-and-up"/>
+        <!-- <ShareMenu class="hidden-md-and-up"/> -->
       </v-toolbar>
     </transition>
   </nav>
@@ -60,12 +60,12 @@
 </style>
 
 <script>
-import ShareMenu from "~/components/ShareMenu";
+// import ShareMenu from "~/components/ShareMenu";
 import config from "~/config";
 
 export default {
   components: {
-    ShareMenu
+    // ShareMenu
   },
   data: () => ({
     appName: "",
