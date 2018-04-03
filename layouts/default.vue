@@ -2,9 +2,10 @@
   <v-app id="inspire">
     <Navigation />
     <v-content v-touch="{
-      left: () => alert('left'),
-      right: () => alert('right')
+      left: () => onSwipe('left'),
+      right: () => onSwipe('right')
     }">
+    {{ swipeDirection}}
       <v-container>
         <nuxt />
       </v-container>
@@ -33,7 +34,14 @@ export default {
     Footer
   },
   data: () => ({
-    year: new Date().getFullYear()
-  })
+    year: new Date().getFullYear(),
+    swipeDirection: ''
+  }),
+  methods: {
+    onSwipe(direction) {
+      alert(direction);
+      this.swipeDirection = direction
+    }
+  }
 };
 </script>
