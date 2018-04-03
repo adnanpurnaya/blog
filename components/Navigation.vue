@@ -2,7 +2,7 @@
   <nav v-resize="initNavigation" v-scroll="onScroll">
     <v-navigation-drawer
       fixed
-      v-model="drawer"
+      v-model="open"
       app
       temporary
     >
@@ -81,7 +81,7 @@ export default {
   },
   data: () => ({
     appName: "",
-    drawer: this.open,
+    drawer: null,
     showPost: false,
     menus: [
       { text: "Home", link: "/", icon: "home", exact: true },
