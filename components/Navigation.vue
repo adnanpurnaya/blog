@@ -28,7 +28,14 @@
       <v-toolbar color="teal lighten-1" dark fixed app v-show="visible">
         <v-btn v-if="showPost" @click.stop="redirectBack" icon class="hidden-md-and-up"><v-icon color="">arrow_back</v-icon></v-btn>
         <v-toolbar-side-icon v-else class="hidden-md-and-up" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <v-toolbar-title>{{ appName }}</v-toolbar-title>
+        <nuxt-link to="/" class="white--text" style="text-decoration: none">
+          <span style="font-size: 1rem;" v-html="'&#123;&#123;...&#125;&#125;'"></span>
+        </nuxt-link>
+        <v-toolbar-title class="ml-1">
+          <nuxt-link to="/" class="white--text" style="text-decoration: none">
+            {{ appName }}
+          </nuxt-link>
+        </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-sm-and-down">
           <v-btn 
