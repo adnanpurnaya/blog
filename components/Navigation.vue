@@ -81,7 +81,7 @@ export default {
   },
   data: () => ({
     appName: "",
-    drawer: null,
+    drawer: this.open,
     showPost: false,
     menus: [
       { text: "Home", link: "/", icon: "home", exact: true },
@@ -131,9 +131,6 @@ export default {
   watch: {
     $route(to, from) {
       this.initNavigation(to.name);
-    },
-    open: (val) => {
-      this.drawer = val;
     }
   }
 };
