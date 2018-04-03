@@ -2,7 +2,7 @@
   <v-app id="inspire">
     <Navigation />
     <v-content>
-      <v-container fluid fill-height>
+      <v-container>
         <nuxt />
       </v-container>
     </v-content>
