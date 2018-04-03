@@ -2,12 +2,36 @@ import Vue from 'vue';
 import { log } from 'util';
 
 let ApplicationMethods = {};
+const hari = [
+  "Minggu",
+  "Senin",
+  "Selasa",
+  "Rabu",
+  "Kamis",
+  "Jumat",
+  "Sabtu"
+];
+const bulan = [
+  "Januari",
+  "Februari",
+  "Maret",
+  "April",
+  "Mei",
+  "Juni",
+  "Juli",
+  "Agustus",
+  "September",
+  "Oktober",
+  "November",
+  "Desember"
+];
 
 ApplicationMethods.install = function (Vue, options) {
   Vue.prototype.$applicationMethods = {
     formatDate(date) {
       const objDate = new Date(date);
-      return objDate.toLocaleDateString("id");
+      return hari[objDate.getDay()] + ", " + 
+        [objDate.getDate(), bulan[objDate.getMonth()], objDate.getFullYear()].join(" ");
     },
     firstParagraph(content) {
       // const paragraphs = content.match(/<p>(.+?)<\/p>/g);
