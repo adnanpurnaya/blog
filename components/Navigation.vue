@@ -1,30 +1,31 @@
 <template>
-  <nav v-resize="initNavigation">
+  <nav v-resize="initNavigation" v-scroll="onScroll">
     <v-navigation-drawer
-        fixed
-        v-model="drawer"
-        app
-        temporary
-      >
-        <v-list>
-          <v-list-tile 
-            active-class="primary--text grey lighten-3"
-            v-for="menu in menus" 
-            :key="menu.link" 
-            nuxt 
-            :to="menu.link" 
-            :exact="menu.exact" 
-            >
-            <v-list-tile-action>
-              <v-icon>{{ menu.icon }}</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>{{ menu.text }}</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
-      </v-navigation-drawer>
-      <v-toolbar color="indigo" dark fixed app>
+      fixed
+      v-model="drawer"
+      app
+      temporary
+    >
+      <v-list>
+        <v-list-tile 
+          active-class="grey lighten-3 teal--text text--lighten-1"
+          v-for="menu in menus" 
+          :key="menu.link" 
+          nuxt 
+          :to="menu.link" 
+          :exact="menu.exact" 
+          >
+          <v-list-tile-action>
+            <v-icon>{{ menu.icon }}</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>{{ menu.text }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
+    <transition name="fade" >
+      <v-toolbar color="teal lighten-1" dark fixed app v-show="visible">
         <v-btn v-if="showPost" @click.stop="redirectBack" icon class="hidden-md-and-up"><v-icon color="">arrow_back</v-icon></v-btn>
         <v-toolbar-side-icon v-else class="hidden-md-and-up" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         <v-toolbar-title>{{ appName }}</v-toolbar-title>
@@ -43,11 +44,24 @@
         </v-toolbar-items>
         <ShareMenu class="hidden-md-and-up"/>
       </v-toolbar>
-    </nav>
+    </transition>
+  </nav>
 </template>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
 
 <script>
 import ShareMenu from "~/components/ShareMenu";
+import config from "~/config";
 
 export default {
   components: {
@@ -61,7 +75,9 @@ export default {
       { text: "Home", link: "/", icon: "home", exact: true },
       // { text: "Post", link: "/post", icon: "library_books", exact: false },
       { text: "About", link: "/about", icon: "contact_mail", exact: true }
-    ]
+    ],
+    visible: true,
+    lastOffsetTop: 0
   }),
   methods: {
     redirectBack() {
@@ -73,7 +89,19 @@ export default {
       this.appName =
         routeName == "post-slug" && !this.$vuetify.breakpoint.mdAndUp
           ? "Post"
-          : "Application";
+          : config.app.name;
+    },
+    onScroll() {
+      const offsetTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+      if (offsetTop < this.lastOffsetTop) {
+        this.visible = true;
+      } else if (offsetTop > 60 && offsetTop > this.lastOffsetTop) {
+        this.visible = false;
+      } else {
+        this.visible = true;
+      }
+      this.lastOffsetTop = offsetTop;
     }
   },
   mounted() {
