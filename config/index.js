@@ -1,1 +1,9 @@
-export const DEFAULT_IMAGE = "https://a.storyblok.com/f/43132/400x400/abe5a347ec/image-placeholder-v2.jpg";
+module.exports = {
+  app: {
+    name: "Adnan Blog",
+    short_name: "Adnan Blog",
+    description: "A simply readable Web Development Blog app.",
+    color: "#00796B"
+  },
+  default_image: "default-image.jpg"
+}

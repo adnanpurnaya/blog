@@ -2,6 +2,8 @@ const pkg = require('./package')
 
 const nodeExternals = require('webpack-node-externals')
 
+const config = require('./config');
+
 module.exports = {
   mode: 'spa',
 
@@ -9,11 +11,11 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: pkg.name,
+    title: config.app.name,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      { hid: 'description', name: 'description', content: config.app.description }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -24,7 +26,7 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#3B8070' },
+  loading: { color: config.app.color },
 
   /*
   ** Global CSS
@@ -82,10 +84,21 @@ module.exports = {
   },
 
   /*
-  ** routerBase
+  ** Router Base
   */
   router: {
     base: '/blog/',
     mode: 'hash'
+  },
+
+  /*
+  ** Web App Manifest
+  */
+  manifest: {
+    name: config.app.name,
+    short_name: config.app.short_name,
+    description: config.app.description,
+    theme_color: config.app.color,
+    lang: 'id',
   }
 }
