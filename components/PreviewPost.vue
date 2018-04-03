@@ -4,7 +4,7 @@
       <v-card-media height="200px" :src="imgUrl || defaultImage"></v-card-media>
       <v-card-title primary-title>
         <div>
-          <h3 class="headline mb-0">{{ title }}</h3>
+          <h3 class="headline mb-0 teal--text text--lighten-1">{{ title }}</h3>
           <span class="grey--text">
             <icon name="clock-o" scale="0.7"></icon> {{ $applicationMethods.formatDate(publishedAt) }}
           </span>
@@ -18,21 +18,21 @@
     <v-card-actions>
       <ShareButton :text="title" />
       <v-spacer></v-spacer>
-      <v-btn flat class="blue--text" nuxt :to="link">Read More</v-btn>
+      <v-btn flat class="teal--text text--lighten-1" nuxt :to="link">Read More</v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
 import ShareButton from "~/components/ShareButton";
-import * as config from "~/config";
+import config from "~/config";
 
 export default {
   components: {
     ShareButton
   },
   data: () => ({
-    defaultImage: config.DEFAULT_IMAGE
+    defaultImage: config.default_image
   }),
   props: {
     title: {

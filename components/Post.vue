@@ -2,7 +2,7 @@
   <v-card class="my-3 pa-3">
     <v-card-title primary-title>
       <div style="width:100%">
-        <h3 class="headline mb-0">{{ title }}</h3>
+        <h3 class="headline mb-0 teal--text text--lighten-1">{{ title }}</h3>
         <v-divider class="my-2" />
         <span class="grey--text">
           <icon name="clock-o" scale="0.7"></icon> {{ $applicationMethods.formatDate(publishedAt) }}
@@ -21,14 +21,14 @@
 
 <script>
 import ShareButton from "~/components/ShareButton";
-import * as config from "~/config";
+import config from "~/config";
 
 export default {
   components: {
     ShareButton
   },
   data: () => ({
-    defaultImage: config.DEFAULT_IMAGE
+    defaultImage: config.default_image
   }),
   props: {
     title: {
