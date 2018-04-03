@@ -28,7 +28,7 @@
       <v-toolbar color="teal lighten-1" dark fixed app v-show="visible">
         <v-btn v-if="showPost" @click.stop="redirectBack" icon class="hidden-md-and-up"><v-icon color="">arrow_back</v-icon></v-btn>
         <v-toolbar-side-icon v-else class="hidden-md-and-up" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <nuxt-link to="/" class="white--text" style="text-decoration: none">
+        <nuxt-link to="/" class="white--text" style="text-decoration: none" v-show="appName != 'Post'">
           <span style="font-size: 1rem;" v-html="'&#123;&#123;...&#125;&#125;'"></span>
         </nuxt-link>
         <v-toolbar-title class="ml-1">
