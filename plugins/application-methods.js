@@ -11,6 +11,7 @@ ApplicationMethods.install = function (Vue, options) {
     },
     firstParagraph(content) {
       // const paragraphs = content.match(/<p>(.+?)<\/p>/g);
+      if (!content) return content;
       const paragraphs = content.split("\n");
       if (!paragraphs) return content;
       // return paragraphs[0];
