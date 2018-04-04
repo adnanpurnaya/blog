@@ -27,6 +27,10 @@ article ol {
 article img {
   width: 100%;
 }
+article pre {
+  padding: 16px;
+  background-color: #ECEFF1;
+}
 </style>
 
 
