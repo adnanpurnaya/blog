@@ -88,7 +88,7 @@ module.exports = {
   */
   router: {
     base: '/blog/',
-    mode: 'hash'
+    // mode: 'hash'
   },
 
   /*
