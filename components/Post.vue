@@ -10,14 +10,25 @@
       </div>
     </v-card-title>
     <v-card-media class="mx-3" height="250px" :src="imgUrl || defaultImage"></v-card-media>
-    <article class="pa-3">
-      {{ content }}
-    </article>
+    <article class="pa-3" v-html="content"></article>
     <v-card-actions>
       <ShareButton :text="title" />
     </v-card-actions>
   </v-card>
 </template>
+
+<style>
+/* article p {
+  margin-bottom: 0;
+}
+article ol {
+  list-style-position: inside;
+} */
+article img {
+  width: 100%;
+}
+</style>
+
 
 <script>
 import ShareButton from "~/components/ShareButton";

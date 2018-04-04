@@ -8,7 +8,7 @@
           <span class="grey--text">
             <icon name="clock-o" scale="0.7"></icon> {{ $applicationMethods.formatDate(publishedAt) }}
           </span>
-          <article>{{ $applicationMethods.firstParagraph(content) }}</article>
+          <article v-html="$applicationMethods.firstParagraph(content)"></article>
         </div>
       </v-card-title>
       <!-- <article class="px-3 pt-0 pb-3">

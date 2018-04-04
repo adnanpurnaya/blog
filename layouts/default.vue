@@ -11,9 +11,9 @@
 </template>
 
 <style>
-article {
+/* article {
   white-space: pre-line;
-}
+} */
 
 .card * {
   text-decoration: none;
