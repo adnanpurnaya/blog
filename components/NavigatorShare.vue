@@ -1,5 +1,5 @@
 <template>
-  <v-btn icon @click="onShare" v-if="navigatorShare">
+  <v-btn icon @click="onShare" v-if="navigator.share">
     <v-icon>share</v-icon>
   </v-btn>
 </template>
@@ -15,7 +15,7 @@ export default {
     }
   },
   data: () => ({
-    navigatorShare: navigator.share
+    navigator: navigator
   }),
   methods: {
     onShare() {
@@ -24,14 +24,15 @@ export default {
       if (canonicalElement !== null) {
         url = canonicalElement.href;
       }
-      if (this.navigatorShare) {
-        this.navigatorShare({
-          title: 'this.title',
-          text: 'this.text',
-          url: url
-        })
-          .then(() => alert("Successful share"))
-          .catch(error => alert(error));
+      if (this.navigator.share) {
+        this.navigator
+          .share({
+            title: this.title,
+            text: this.text,
+            url: url
+          })
+          .then(() => console.log("Successful share"))
+          .catch(error => console.log("Error sharing", error));
       }
     }
   }
