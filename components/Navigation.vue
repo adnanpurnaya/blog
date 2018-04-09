@@ -51,6 +51,7 @@
           </v-btn>
         </v-toolbar-items>
         <!-- <ShareMenu class="hidden-md-and-up"/> -->
+        <NavigatorShare class="hidden-md-and-up"/>
       </v-toolbar>
     </transition>
   </nav>
@@ -69,11 +70,12 @@
 
 <script>
 // import ShareMenu from "~/components/ShareMenu";
+import NavigatorShare from "~/components/NavigatorShare";
 import config from "~/config";
 
 export default {
   components: {
-    // ShareMenu
+    NavigatorShare
   },
   props: {
     open: {
