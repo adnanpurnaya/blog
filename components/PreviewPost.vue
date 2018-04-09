@@ -16,7 +16,7 @@
       </article> -->
     </nuxt-link>
     <v-card-actions>
-      <NavigatorShare :title="title" />
+      <NavigatorShare :link="link" :title="title" className="teal--text text--lighten-1" />
       <v-spacer></v-spacer>
       <v-btn flat class="teal--text text--lighten-1" nuxt :to="link">Read More</v-btn>
     </v-card-actions>

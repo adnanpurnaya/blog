@@ -11,9 +11,6 @@
     </v-card-title>
     <v-card-media class="mx-3" height="250px" :src="imgUrl || defaultImage"></v-card-media>
     <article class="pa-3" v-html="content"></article>
-    <v-card-actions>
-      <ShareButton :text="title" />
-    </v-card-actions>
   </v-card>
 </template>
 
@@ -35,13 +32,9 @@ article pre {
 
 
 <script>
-import ShareButton from "~/components/ShareButton";
 import config from "~/config";
 
 export default {
-  components: {
-    ShareButton
-  },
   data: () => ({
     defaultImage: config.default_image
   }),

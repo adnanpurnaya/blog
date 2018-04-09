@@ -1,5 +1,5 @@
 <template>
-  <v-btn icon @click="onShare" v-if="navigator.share">
+  <v-btn icon @click="onShare" v-if="navigator.share" :class="className">
     <v-icon>share</v-icon>
   </v-btn>
 </template>
@@ -7,10 +7,17 @@
 <script>
 export default {
   props: {
+    link: {
+      type: String,
+      default: ""
+    },
     title: {
       type: String
     },
     text: {
+      type: String
+    },
+    className: {
       type: String
     }
   },
@@ -25,14 +32,11 @@ export default {
         url = canonicalElement.href;
       }
       if (this.navigator.share) {
-        this.navigator
-          .share({
-            title: this.title,
-            text: this.text,
-            url: url
-          })
-          .then(() => console.log("Successful share"))
-          .catch(error => console.log("Error sharing", error));
+        this.navigator.share({
+          title: this.title,
+          text: this.text,
+          url: url + this.link
+        });
       }
     }
   }
