@@ -26,12 +26,12 @@ export default {
       }
       if (this.navigatorShare) {
         this.navigatorShare({
-          title: this.title,
-          text: this.text,
+          title: 'this.title',
+          text: 'this.text',
           url: url
         })
           .then(() => alert("Successful share"))
-          .catch(error => alert("Error sharing", error));
+          .catch(error => alert(error));
       }
     }
   }
