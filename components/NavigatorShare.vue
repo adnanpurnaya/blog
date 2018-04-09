@@ -25,7 +25,7 @@ export default {
         url = canonicalElement.href;
       }
       if (this.navigatorShare) {
-        navigatorShare({
+        this.navigatorShare({
           title: this.title,
           text: this.text,
           url: url
