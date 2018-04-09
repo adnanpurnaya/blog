@@ -16,20 +16,27 @@
       </article> -->
     </nuxt-link>
     <v-card-actions>
-      <ShareButton :text="title" />
+      <NavigatorShare :title="title" />
       <v-spacer></v-spacer>
       <v-btn flat class="teal--text text--lighten-1" nuxt :to="link">Read More</v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
+<style>
+article p {
+  margin-bottom: 0;
+}
+</style>
+
+
 <script>
-import ShareButton from "~/components/ShareButton";
+import NavigatorShare from "~/components/NavigatorShare";
 import config from "~/config";
 
 export default {
   components: {
-    ShareButton
+    NavigatorShare
   },
   data: () => ({
     defaultImage: config.default_image

@@ -50,8 +50,7 @@
             <v-icon class="mr-1">{{ menu.icon }}</v-icon> {{ menu.text }}
           </v-btn>
         </v-toolbar-items>
-        <!-- <ShareMenu class="hidden-md-and-up"/> -->
-        <NavigatorShare class="hidden-md-and-up"/>
+        <NavigatorShare class="hidden-md-and-up" v-if="showPost"/>
       </v-toolbar>
     </transition>
   </nav>
@@ -69,7 +68,6 @@
 </style>
 
 <script>
-// import ShareMenu from "~/components/ShareMenu";
 import NavigatorShare from "~/components/NavigatorShare";
 import config from "~/config";
 
