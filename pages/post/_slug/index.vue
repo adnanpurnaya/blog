@@ -103,7 +103,7 @@ export default {
             });
           }
           this.post = null;
-          this.storyblok = null;
+          this.storyblok = {};
         });
     }
   },
