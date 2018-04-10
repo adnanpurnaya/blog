@@ -70,7 +70,8 @@ export default {
       for (let i = 0; i < this.posts.length; i++) {
         if (this.posts[i].slug == val) {
           this.$router.push(`/${val}`);
-          setTimeout(() => this.$refs.select.blur(), 500);
+          this.posts = [this.posts[i]];
+          setTimeout(() => this.$refs.select.blur(), 200);
           break;
         }
       }
@@ -110,8 +111,6 @@ export default {
       });
     },
     querySelections(v) {
-      if (this.posts.length > 0) return;
-
       this.loading = true;
 
       // Load the JSON from the API
