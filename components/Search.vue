@@ -23,7 +23,7 @@
         </v-list-tile-avatar>
         <v-list-tile-content>
           <v-list-tile-title>{{ data.item.shortTitle }}</v-list-tile-title>
-          <v-list-tile-sub-title>{{ $applicationMethods.formatDate(data.item.publishedAt) }}</v-list-tile-sub-title>
+          <v-list-tile-sub-title><icon name="clock-o" scale="0.7"></icon> {{ $applicationMethods.formatDate(data.item.publishedAt) }}</v-list-tile-sub-title>
         </v-list-tile-content>
       </template>
     </v-select>
@@ -82,7 +82,7 @@ export default {
       this.$emit("search-close");
     },
     shortTitle(title) {
-      const length = 55;
+      const length = 50;
       return title.length > length
         ? title.substring(0, length - 3) + "..."
         : title;
