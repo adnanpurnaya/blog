@@ -64,7 +64,7 @@ export default {
             message: res.response.data
           });
         }
-        return { post: null, storyblok: null };
+        return { post: null, storyblok: {} };
       });
   },
   methods: {
