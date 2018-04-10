@@ -15,7 +15,19 @@
       style="text-align:center"
     >
       <p style="font-size: 3rem">:(</p> 
-      <p style="font-size: 1.5rem">Maaf, untuk saat ini belum ada post untuk ditampilkan.</p>
+      <p style="font-size: 1.5rem" v-if="!aborted">Maaf, untuk saat ini belum ada post untuk ditampilkan.</p>
+      <p style="font-size: 1.5rem" v-else>
+        Post gagal ditampilkan. 
+        <v-btn 
+          flat 
+          icon 
+          color="teal darken-1"
+          :loading="loading"
+          @click.native="loadData"
+          :disabled="loading"
+          ><v-icon>cached</v-icon>
+        </v-btn>
+      </p>
     </v-flex>
     <v-flex style="text-align:center" v-if="loading">
       <v-progress-circular :size="size" indeterminate color="primary"></v-progress-circular>
@@ -30,7 +42,10 @@
 <script>
 import PreviewPost from "~/components/PreviewPost";
 
+// post per page
 const PER_PAGE = 6;
+// Check if we are in the editor mode
+const VERSION = process.env.NODE_ENV == "development" ? "draft" : "published";
 
 export default {
   components: {
@@ -41,17 +56,13 @@ export default {
     noMoreData: false
   }),
   asyncData(context) {
-    // Check if we are in the editor mode
-    let version =
-      context.query._storyblok || context.isDev ? "draft" : "published";
-
     // Load the JSON from the API
     return context.app.$storyapi
       .get("cdn/stories/", {
         starts_with: "post",
         sort_by: "content.publishedAt:desc",
         per_page: PER_PAGE,
-        version: version
+        version: VERSION
       })
       .then(res => {
         return {
@@ -65,11 +76,14 @@ export default {
               publishedAt: post.content.publishedAt
             };
           }),
-          total: res.total
+          total: res.total,
+          aborted: false
         };
       })
       .catch(res => {
+        let aborted = false;
         if (res.code == "ECONNABORTED") {
+          aborted = true;
           console.warn(res.message);
         } else {
           context.error({
@@ -77,7 +91,7 @@ export default {
             message: res.response.data
           });
         }
-        return { posts: [], total: 0 };
+        return { posts: [], total: 0, aborted };
       });
   },
   methods: {
@@ -90,11 +104,49 @@ export default {
         this.loadMore();
       }
     },
+    loadData() {
+      this.$nuxt.$loading.start();
+      // Load the JSON from the API
+      this.$storyapi
+        .get("cdn/stories/", {
+          starts_with: "post",
+          sort_by: "content.publishedAt:desc",
+          per_page: PER_PAGE,
+          version: VERSION
+        })
+        .then(res => {
+          this.$nuxt.$loading.finish();
+          this.posts = res.data.stories.map(post => {
+            return {
+              id: post.id,
+              slug: post.full_slug,
+              title: post.content.title,
+              imgUrl: post.content.image,
+              content: post.content.content,
+              publishedAt: post.content.publishedAt
+            };
+          });
+          this.total = res.total;
+          this.aborted = false;
+        })
+        .catch(res => {
+          this.$nuxt.$loading.finish();
+          let aborted = false;
+          if (res.code == "ECONNABORTED") {
+            aborted = true;
+            console.warn(res.message);
+          } else {
+            context.error({
+              statusCode: res.response.status,
+              message: res.response.data
+            });
+          }
+          this.posts = [];
+          this.total = 0;
+          this.aborted = aborted;
+        });
+    },
     loadMore() {
-      // Check if we are in the editor mode
-      // let version =
-      // this.$route.query._storyblok ? "draft" : "published";
-      let version = "draft";
       if (this.loading) {
         return;
       }
@@ -112,7 +164,7 @@ export default {
           sort_by: "content.publishedAt:desc",
           per_page: PER_PAGE,
           page: Math.ceil(this.posts.length / PER_PAGE) + 1,
-          version: version
+          version: VERSION
         })
         .then(res => {
           this.loading = false;
