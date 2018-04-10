@@ -112,7 +112,6 @@ export default {
     },
     querySelections(v) {
       this.loading = true;
-
       // Load the JSON from the API
       this.$storyapi
         .get("cdn/stories/", {

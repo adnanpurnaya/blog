@@ -26,13 +26,14 @@ article img {
 }
 article pre {
   padding: 16px;
-  background-color: #ECEFF1;
+  background-color: #eceff1;
 }
 </style>
 
 
 <script>
 import config from "~/config";
+import { EventBus } from "~/plugins/event-bus.js";
 
 export default {
   data: () => ({
@@ -58,6 +59,12 @@ export default {
     publishedAt: {
       type: String
     }
+  },
+  mounted() {
+    EventBus.$emit("show-post", this.title);
+  },
+  destroyed() {
+    EventBus.$off();
   }
 };
 </script>

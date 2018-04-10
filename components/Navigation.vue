@@ -55,7 +55,7 @@
         <v-btn icon class="hidden-md-and-up" @click="search = true" v-if="!search">
           <v-icon>search</v-icon>
         </v-btn>
-        <NavigatorShare class="hidden-md-and-up" v-if="showPost && !search"/>
+        <NavigatorShare class="hidden-md-and-up" :title="postTitle" v-if="showPost && !search"/>
       </v-toolbar>
     </transition>
   </nav>
@@ -75,6 +75,7 @@
 <script>
 import config from "~/config";
 import Search from "~/components/Search";
+import { EventBus } from "~/plugins/event-bus.js";
 import NavigatorShare from "~/components/NavigatorShare";
 
 export default {
@@ -97,7 +98,8 @@ export default {
     ],
     visible: true,
     lastOffsetTop: 0,
-    search: false
+    search: false,
+    postTitle: null
   }),
   methods: {
     redirectBack() {
@@ -143,6 +145,9 @@ export default {
   },
   mounted() {
     this.initNavigation();
+    EventBus.$once("show-post", title => {
+      this.postTitle = title;
+    });
   },
   watch: {
     $route(to, from) {
