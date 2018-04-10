@@ -19,9 +19,9 @@
       <p style="font-size: 1.5rem" v-else>Post gagal ditampilkan</p>
       <v-btn flat icon 
         color="teal darken-1"
-        :loading="loading"
+        :loading="loadingData"
         @click.native="loadData"
-        :disabled="loading"
+        :disabled="loadingData"
         v-if="aborted"
         ><v-icon>cached</v-icon>
       </v-btn>
@@ -50,7 +50,8 @@ export default {
   },
   data: () => ({
     loading: false,
-    noMoreData: false
+    noMoreData: false,
+    loadingData: false
   }),
   asyncData(context) {
     // Load the JSON from the API
@@ -102,7 +103,7 @@ export default {
       }
     },
     loadData() {
-      this.loading = true;
+      this.loadingData = true;
       this.$nuxt.$loading.start();
       // Load the JSON from the API
       this.$storyapi
@@ -113,7 +114,7 @@ export default {
           version: VERSION
         })
         .then(res => {
-          this.loading = false;
+          this.loadingData = false;
           this.$nuxt.$loading.finish();
           this.posts = res.data.stories.map(post => {
             return {
@@ -129,7 +130,7 @@ export default {
           this.aborted = false;
         })
         .catch(res => {
-          this.loading = false;
+          this.loadingData = false;
           this.$nuxt.$loading.finish();
           let aborted = false;
           if (res.code == "ECONNABORTED") {
