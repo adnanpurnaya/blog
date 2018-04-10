@@ -3,7 +3,7 @@
     <nuxt-link :to="link">
       <v-card-media height="200px" :src="imgUrl || defaultImage"></v-card-media>
       <v-card-title primary-title>
-        <div>
+        <div style="height: 200px">
           <h3 class="headline mb-0 teal--text text--lighten-1">{{ title }}</h3>
           <span class="grey--text">
             <icon name="clock-o" scale="0.7"></icon> {{ $applicationMethods.formatDate(publishedAt) }}
