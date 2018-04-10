@@ -31,8 +31,8 @@ article p {
 
 
 <script>
-import NavigatorShare from "~/components/NavigatorShare";
 import config from "~/config";
+import NavigatorShare from "~/components/NavigatorShare";
 
 export default {
   components: {

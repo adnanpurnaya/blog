@@ -27,17 +27,19 @@
     </v-navigation-drawer>
     <transition name="fade" >
       <v-toolbar color="teal lighten-1" dark fixed app v-show="visible" :class="paddingLeft">
-        <v-btn v-if="showPost" @click.stop="redirectBack" icon class="hidden-md-and-up"><v-icon color="">arrow_back</v-icon></v-btn>
-        <v-toolbar-side-icon v-else class="hidden-md-and-up" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <nuxt-link to="/" class="white--text" style="text-decoration: none" v-show="appName != 'Post'">
+        <v-btn v-if="showPost && (!search || $vuetify.breakpoint.mdAndUp)" @click.stop="redirectBack" icon class="hidden-md-and-up"><v-icon color="">arrow_back</v-icon></v-btn>
+        <v-toolbar-side-icon v-if="!showPost && (!search || $vuetify.breakpoint.mdAndUp)" class="hidden-md-and-up" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+        <nuxt-link to="/" class="white--text" style="text-decoration: none" v-show="appName != 'Post' && (!search || $vuetify.breakpoint.mdAndUp)">
           <span style="font-size: 1rem;" v-html="'&#123;&#123;...&#125;&#125;'"></span>
         </nuxt-link>
-        <v-toolbar-title class="ml-1">
+        <v-toolbar-title class="ml-1" v-if="!search || $vuetify.breakpoint.mdAndUp">
           <nuxt-link to="/" class="white--text" style="text-decoration: none">
             {{ appName }}
           </nuxt-link>
         </v-toolbar-title>
-        <v-spacer></v-spacer>
+        <v-spacer v-if="!search || $vuetify.breakpoint.mdAndUp"></v-spacer>
+        <Search style="width:300px" :back-icon="$vuetify.breakpoint.smAndDown" v-if="search || $vuetify.breakpoint.mdAndUp" @search-close="search = false" />
+        <v-spacer class="hidden-sm-and-down"></v-spacer>
         <v-toolbar-items class="hidden-sm-and-down">
           <v-btn 
             flat 
@@ -50,7 +52,10 @@
             <v-icon class="mr-1">{{ menu.icon }}</v-icon> {{ menu.text }}
           </v-btn>
         </v-toolbar-items>
-        <NavigatorShare class="hidden-md-and-up" v-if="showPost"/>
+        <v-btn icon class="hidden-md-and-up" @click="search = true" v-if="!search">
+          <v-icon>search</v-icon>
+        </v-btn>
+        <NavigatorShare class="hidden-md-and-up" v-if="showPost && !search"/>
       </v-toolbar>
     </transition>
   </nav>
@@ -68,12 +73,14 @@
 </style>
 
 <script>
-import NavigatorShare from "~/components/NavigatorShare";
 import config from "~/config";
+import Search from "~/components/Search";
+import NavigatorShare from "~/components/NavigatorShare";
 
 export default {
   components: {
-    NavigatorShare
+    NavigatorShare,
+    Search
   },
   props: {
     open: {
@@ -89,7 +96,8 @@ export default {
       { text: "About", link: "/about", icon: "contact_mail", exact: true }
     ],
     visible: true,
-    lastOffsetTop: 0
+    lastOffsetTop: 0,
+    search: false
   }),
   methods: {
     redirectBack() {

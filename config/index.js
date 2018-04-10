@@ -6,5 +6,5 @@ module.exports = {
     color: "#00796B"
   },
   author: "Adnan Purnaya",
-  default_image: "default-image.jpg"
+  default_image: "/blog/default-image.jpg"
 }
