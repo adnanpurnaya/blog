@@ -16,7 +16,7 @@
     >
       <p style="font-size: 3rem">:(</p> 
       <p style="font-size: 1.5rem" v-if="!aborted">Maaf, untuk saat ini belum ada post untuk ditampilkan.</p>
-      <p style="font-size: 1.5rem" v-else>Post gagal ditampilkan</p>
+      <p style="font-size: 1.5rem" v-else>Halaman gagal ditampilkan</p>
       <v-btn flat icon 
         color="teal darken-1"
         :loading="loadingData"

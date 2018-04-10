@@ -1,6 +1,6 @@
 <template>
   <v-layout row v-editable="storyblok">
-    <v-flex xs12 sm6 offset-sm3>
+    <v-flex xs12 sm6 offset-sm3 v-if="content">
       <v-card>
         <v-card-media :src="content.image" height="300px">
           <v-layout column class="media">
@@ -52,6 +52,20 @@
         </v-list>
       </v-card>
     </v-flex>
+    <v-flex offset-md1 md10 v-else
+      style="text-align:center" 
+      class="grey--text text--darken-1 mt-5"
+    >
+      <p style="font-size: 3rem">:(</p> 
+      <p style="font-size: 1.5rem">Halaman gagal ditampilkan</p>
+      <v-btn flat icon 
+        color="teal darken-1"
+        :loading="loading"
+        @click.native="loadData"
+        :disabled="loading"
+        ><v-icon>cached</v-icon>
+      </v-btn>
+    </v-flex>
   </v-layout>
 </template>
 
@@ -63,16 +77,18 @@
 </style>
 
 <script>
-export default {
-  asyncData(context) {
-    // Check if we are in the editor mode
-    let version =
-      context.query._storyblok || context.isDev ? "draft" : "published";
+// Check if we are in the editor mode
+const VERSION = process.env.NODE_ENV == "development" ? "draft" : "published";
 
+export default {
+  data: () => ({
+    loading: false
+  }),
+  asyncData(context) {
     // Load the JSON from the API
     return context.app.$storyapi
       .get("cdn/stories/about/", {
-        version: version
+        version: VERSION
       })
       .then(res => {
         return {
@@ -89,8 +105,40 @@ export default {
             message: res.response.data
           });
         }
-        return { content: null, storyblok: null };
+        return { content: null, storyblok: {} };
       });
+  },
+  methods: {
+    loadData() {
+      this.loading = true;
+      this.$nuxt.$loading.start();
+      // Load the JSON from the API
+      this.$storyapi
+        .get("cdn/stories/about/", {
+          version: VERSION
+        })
+        .then(res => {
+          this.loading = false;
+          this.$nuxt.$loading.finish();
+
+          this.content = JSON.parse(res.data.story.content.body);
+          this.storyblok = res.data.story.content;
+        })
+        .catch(res => {
+          this.loading = false;
+          this.$nuxt.$loading.finish();
+          if (res.code == "ECONNABORTED") {
+            console.warn(res.message);
+          } else {
+            context.error({
+              statusCode: res.response.status,
+              message: res.response.data
+            });
+          }
+          this.content = null;
+          this.storyblok = {};
+        });
+    }
   },
   mounted() {
     this.$storyblok.init();

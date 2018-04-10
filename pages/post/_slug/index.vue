@@ -1,21 +1,25 @@
 <template>
   <v-layout justify-center v-editable="storyblok">
-    <v-flex md10>
+    <v-flex md10 v-if="post">
       <Post 
         :img-url="post.imgUrl" 
         :content="post.content" 
         :title="post.title"
         :link="post.slug"
         :published-at="post.publishedAt"
-        v-if="post"
         />
-      <p style="font-size: 1.5rem" v-else>Post gagal ditampilkan</p>
+    </v-flex>
+    <v-flex md10 v-else
+      style="text-align:center" 
+      class="grey--text text--darken-1 mt-5"
+    >
+      <p style="font-size: 3rem">:(</p> 
+      <p style="font-size: 1.5rem">Halaman gagal ditampilkan</p>
       <v-btn flat icon 
         color="teal darken-1"
         :loading="loading"
         @click.native="loadData"
         :disabled="loading"
-        v-if="!post"
         ><v-icon>cached</v-icon>
       </v-btn>
     </v-flex>
@@ -73,7 +77,7 @@ export default {
       this.$nuxt.$loading.start();
       // Load the JSON from the API
       this.$storyapi
-        .get("cdn/stories/post/" + context.params.slug, {
+        .get("cdn/stories/post/" + this.$route.params.slug, {
           version: VERSION
         })
         .then(res => {
