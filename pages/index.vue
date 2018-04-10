@@ -16,18 +16,15 @@
     >
       <p style="font-size: 3rem">:(</p> 
       <p style="font-size: 1.5rem" v-if="!aborted">Maaf, untuk saat ini belum ada post untuk ditampilkan.</p>
-      <p style="font-size: 1.5rem" v-else>
-        Post gagal ditampilkan. 
-        <v-btn 
-          flat 
-          icon 
-          color="teal darken-1"
-          :loading="loading"
-          @click.native="loadData"
-          :disabled="loading"
-          ><v-icon>cached</v-icon>
-        </v-btn>
-      </p>
+      <p style="font-size: 1.5rem" v-else>Post gagal ditampilkan</p>
+      <v-btn flat icon 
+        color="teal darken-1"
+        :loading="loading"
+        @click.native="loadData"
+        :disabled="loading"
+        v-if="aborted"
+        ><v-icon>cached</v-icon>
+      </v-btn>
     </v-flex>
     <v-flex style="text-align:center" v-if="loading">
       <v-progress-circular :size="size" indeterminate color="primary"></v-progress-circular>
@@ -105,6 +102,7 @@ export default {
       }
     },
     loadData() {
+      this.loading = true;
       this.$nuxt.$loading.start();
       // Load the JSON from the API
       this.$storyapi
@@ -115,6 +113,7 @@ export default {
           version: VERSION
         })
         .then(res => {
+          this.loading = false;
           this.$nuxt.$loading.finish();
           this.posts = res.data.stories.map(post => {
             return {
@@ -130,6 +129,7 @@ export default {
           this.aborted = false;
         })
         .catch(res => {
+          this.loading = false;
           this.$nuxt.$loading.finish();
           let aborted = false;
           if (res.code == "ECONNABORTED") {
