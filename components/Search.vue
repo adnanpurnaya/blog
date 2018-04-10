@@ -15,6 +15,7 @@
       style="white-space: nowrap"
       :prepend-icon="backIcon ? 'keyboard_backspace' : null"
       :prepend-icon-cb="searchClose"
+      ref="select"
     >
       <template slot="item" slot-scope="data">
         <v-list-tile-avatar>
@@ -69,6 +70,7 @@ export default {
       for (let i = 0; i < this.posts.length; i++) {
         if (this.posts[i].slug == val) {
           this.$router.push(`/${val}`);
+          setTimeout(() => this.$refs.select.blur(), 500);
           break;
         }
       }
@@ -76,7 +78,7 @@ export default {
   },
   methods: {
     searchClose() {
-      this.$emit('search-close');
+      this.$emit("search-close");
     },
     shortTitle(title) {
       const length = 55;
