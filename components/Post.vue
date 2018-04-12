@@ -18,11 +18,18 @@
 /* article p {
   margin-bottom: 0;
 }
+ */
+ article ol li {
+   margin-left: 16px;
+ }
 article ol {
   list-style-position: inside;
-} */
-article img {
+}
+article img:not(.original-size) {
   width: 100%;
+}
+article img.padding-img {
+  padding: 0 8%;
 }
 article pre {
   padding: 16px;
